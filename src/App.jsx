@@ -146,10 +146,10 @@ function App() {
             </div>
 
             <div className="hero-tags">
-              <span>LINE Messaging API</span>
+              <span>LINE BOT</span>
               <span>AI / LLM</span>
               <span>LIFF</span>
-              <span>企業權限管理</span>
+              <span>企業流程客製化</span>
             </div>
           </div>
 
@@ -236,25 +236,7 @@ function App() {
           </div>
         </section>
 
-        {/* Stats */}
-        <section className="stats">
-          <div>
-            <strong>01</strong>
-            <span>LINE 原生工作環境</span>
-          </div>
-          <div>
-            <strong>AI</strong>
-            <span>自然語言任務辨識</span>
-          </div>
-          <div>
-            <strong>24/7</strong>
-            <span>任務資訊集中管理</span>
-          </div>
-          <div>
-            <strong>∞</strong>
-            <span>企業流程客製化</span>
-          </div>
-        </section>
+  
 
         {/* Problem */}
         <section className="section problem-section" id="problem">
@@ -327,7 +309,7 @@ function App() {
         {/* Scenario */}
         <section className="section scenario-section" id="scenario">
           <div className="section-heading centered">
-            <div className="section-number">03 / SYSTEM</div>
+            <div className="section-number">03 / 系統畫面</div>
 
             <h2>
               真實系統畫面，
@@ -492,9 +474,7 @@ function App() {
             <span>Supabase</span>
             <span>Edge Functions</span>
             <span>LIFF</span>
-            <span>RBAC</span>
-            <span>Audit Log</span>
-          </div>
+            </div>
         </section>
 
         {/* Comparison */}
