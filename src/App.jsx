@@ -26,51 +26,62 @@ const painPoints = [
 const services = [
   {
     icon: "AI",
-    title: "AI 任務辨識",
-    text: "理解自然語言，自動判斷訊息是否為工作任務。",
+    title: "LINE 任務蒐集",
+    text: "使用者直接在 LINE 群組中交辦工作，AI 自動辨識並建立任務。",
+  },
+  {
+    icon: "✦",
+    title: "AI 任務解析",
+    text: "理解自然語言，自動擷取任務內容、負責人、截止日期等資訊。",
   },
   {
     icon: "01",
-    title: "自動擷取資訊",
-    text: "從對話中擷取任務內容、負責人、截止日期等資訊。",
+    title: "任務管理",
+    text: "透過 LIFF 查看、認領、完成與修改任務，掌握個人與團隊工作進度。",
   },
   {
     icon: "02",
-    title: "LINE 直接操作",
-    text: "從建立、認領到完成，不需要離開原本的 LINE 工作環境。",
+    title: "會議管理",
+    text: "將 LINE 中的會議資訊獨立整理，避免會議與一般工作任務混在一起。",
   },
   {
     icon: "03",
-    title: "任務管理介面",
-    text: "透過 LIFF 查看個人與團隊任務、狀態及截止日期。",
+    title: "1:1 私訊推播",
+    text: "任務或重要通知可直接推播至指定成員的 LINE 私人聊天室。",
   },
   {
     icon: "04",
-    title: "權限與角色",
-    text: "依照企業需求設定管理者、成員與任務操作權限。",
+    title: "LINE 通知與互動",
+    text: "任務建立後即時回傳 LINE，支援直接認領、完成與婉拒等操作。",
   },
   {
     icon: "05",
-    title: "完整操作紀錄",
-    text: "記錄任務建立、指派、修改、認領與完成等操作。",
+    title: "成員與團隊識別",
+    text: "綁定 LINE 群組成員暱稱、團隊與部門資訊，協助 AI 正確辨識任務對象。",
+  },
+  {
+    icon: "06",
+    title: "管理員任務管理",
+    text: "管理員可統一管理群組任務、負責人與進度，掌握團隊整體工作狀況。",
   },
 ];
 
 const comparisonRows = [
-  ["LINE 直接建立任務", true, false, false, false],
+   ["LINE 直接建立任務", true, true, false, false],
   ["AI 自動辨識任務", true, false, true, true],
-  ["自動擷取負責人", true, false, false, false],
-  ["自動擷取截止日期", true, false, false, true],
+  ["自動擷取任務資訊", true, false, false, true],
+  ["自動辨識負責人／團隊", true, false, false, false],
   ["不需改變 LINE 使用習慣", true, true, false, false],
-  ["任務看板", true, false, true, true],
-  ["任務日曆", true, false, true, true],
+  ["即時任務小卡", true, false, false, false],
+  ["LINE 任務互動操作", true, false, false, false],
+  ["任務生命週期管理", true, false, true, true],
   ["任務認領", true, false, true, true],
   ["任務狀態追蹤", true, false, true, true],
+  ["管理員任務管理", true, false, true, true],
   ["企業權限管理", true, false, true, true],
-  ["企業流程客製化", true, false, "△", "△"],
-  ["1:1 聊天室推播", true, false, false, false],
-["全群任務管理頁面", true, false, true, true],
-["會議獨立管理", true, false, false, false],
+  ["1:1 私訊推播", true, false, false, false],
+  ["全群任務管理頁面", true, false, true, true],
+  ["會議獨立管理", true, false, false, false],
 ];
 
 function Check({ value }) {
