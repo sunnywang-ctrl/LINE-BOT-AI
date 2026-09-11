@@ -68,6 +68,9 @@ const comparisonRows = [
   ["任務狀態追蹤", true, false, true, true],
   ["企業權限管理", true, false, true, true],
   ["企業流程客製化", true, false, "△", "△"],
+  ["1:1 聊天室推播", true, false, false, false],
+["全群任務管理頁面", true, false, true, true],
+["會議獨立管理", true, false, false, false],
 ];
 
 function Check({ value }) {
