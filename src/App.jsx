@@ -26,57 +26,68 @@ const painPoints = [
 const services = [
   {
     icon: "✦",
-    title: "AI 任務蒐集與解析",
-    text: "使用者直接在 LINE 群組中交辦工作，AI 理解自然語言，自動擷取任務內容、負責人、截止日期等資訊。",
+    title: "LINE 跨群組任務蒐集",
+    text: "使用者直接在各 LINE 群組中交辦工作，AI 自動辨識並建立任務。",
   },
   {
     icon: "✦",
-    title: "任務管理",
-    text: "透過 LIFF 查看、認領、完成與修改任務，掌握個人與團隊工作進度。",
+    title: "AI 自動化流程",
+    text: "理解自然語言，自動擷取任務內容、負責人、截止日期等任務資訊。",
   },
   {
     icon: "✦",
-    title: "會議管理",
-    text: "將 LINE 中的會議資訊獨立整理，避免會議與一般工作任務混在一起。",
+    title: "圖片識別",
+    text: "AI 可分析 LINE 中的圖片內容，協助辨識圖片中的任務與相關資訊。",
+  },
+  {
+    icon: "✦",
+    title: "任務管理系統",
+    text: "透過管理後台查看、認領、完成及管理任務內容，掌握團隊工作進度。",
+  },
+  {
+    icon: "✦",
+    title: "會議管理系統",
+    text: "將 LINE 中的會議資訊獨立整理，與一般工作任務清楚區隔。",
   },
   {
     icon: "✦",
     title: "1:1 私訊推播",
-    text: "在 LINE 免費訊息額度內，任務或重要通知可直接推播至指定成員的 LINE 私人聊天室，避免重要資訊被群組訊息淹沒。",
+    text: "在 LINE 免費訊息額度內，將任務或重要通知推播至指定成員的私人聊天室。",
   },
   {
     icon: "✦",
     title: "LINE 通知與互動",
-    text: "任務建立後即時回傳任務小卡到群組，支援直接認領、完成與婉拒等操作。",
+    text: "任務建立後即時回傳任務小卡，支援群組內直接認領、完成、婉拒及確認任務資訊。",
   },
   {
     icon: "✦",
-    title: "成員與團隊識別",
-    text: "綁定 LINE 群組成員暱稱、團隊與部門資訊，協助 AI 正確辨識任務對象。",
+    title: "群組成員暱稱綁定",
+    text: "將群組成員暱稱與系統帳號、團隊或部門綁定，協助 AI 準確辨識任務負責人。",
   },
   {
     icon: "✦",
-    title: "管理員任務管理",
-    text: "管理員可統一管理群組任務、負責人與進度，掌握團隊整體工作狀況。",
+    title: "權限管理設定",
+    text: "管理員可查看群組內所有任務，統一管理任務、負責人與任務進度。",
+  },
+  {
+    icon: "✦",
+    title: "Google 試算表串接",
+    text: "串接 Google 試算表，讓任務資料可同步管理，方便團隊查看與維護。",
   },
 ];
 
 const comparisonRows = [
-   ["LINE 直接建立任務", true, true, false, false],
-  ["AI 自動辨識任務", true, false, true, true],
-  ["自動擷取任務資訊", true, false, false, true],
+  ["LINE 直接建立任務", true, true, false, false],
+  ["AI 自動辨識任務", true, false, "△","△"],
+  ["自動擷取任務資訊", true, false, false, false],
   ["自動辨識負責人／團隊", true, false, false, false],
+  ["圖片內容辨識", true, false, "△", "△"],
   ["不需改變 LINE 使用習慣", true, true, false, false],
   ["即時任務小卡", true, false, false, false],
-  ["LINE 任務互動操作", true, false, false, false],
-  ["任務生命週期管理", true, false, true, true],
-  ["任務認領", true, false, true, true],
-  ["任務狀態追蹤", true, false, true, true],
-  ["管理員任務管理", true, false, true, true],
-  ["企業權限管理", true, false, true, true],
-  ["1:1 私訊推播", true, false, false, false],
-  ["全群任務管理頁面", true, false, true, true],
-  ["會議獨立管理", true, false, false, false],
+  ["LINE 任務互動操作", true, true, false, false],
+  ["1:1 LINE 私訊推播", true, true, false, false],
+  ["會議資訊獨立管理", true, false,"△","△"],
+  ["Google 試算表串接", true, false, "△", "△"],
 ];
 
 function Check({ value }) {
@@ -85,7 +96,7 @@ function Check({ value }) {
   return value ? (
     <span className="compare-check">✓</span>
   ) : (
-    <span className="compare-x">×</span>
+    <span className="compare-x">—</span>
   );
 }
 
@@ -115,8 +126,11 @@ function App() {
             <a href="#compare">方案比較</a>
           </nav>
 
-          <a href="#contact" className="nav-button">
-            聯絡我們
+          <a href="https://sites.google.com/suros.com.tw/suros-inc/%E8%81%AF%E7%B5%A1%E6%88%91%E5%80%91" 
+             className="primary-button"
+             target="_blank"
+             rel="noopener noreferrer">
+             聯絡我們
           </a>
         </div>
       </header>
@@ -155,9 +169,10 @@ function App() {
             </div>
 
             <div className="hero-tags">
-              <span>LINE BOT</span>
-              <span>AI / LLM</span>
-              <span>LIFF</span>
+              <span>LINE 跨群任務蒐集</span>
+              <span>精準通知推播</span>
+              <span>團隊管理儀表板</span>
+              <span>AI 自動化流程</span>
               <span>企業流程客製化</span>
             </div>
           </div>
@@ -315,21 +330,21 @@ function App() {
           </div>
         </section>
 
-        {/* Scenario */}
+       {/* Scenario */}
         <section className="section scenario-section" id="scenario">
           <div className="section-heading centered">
-            <div className="section-number">03 / 系統畫面</div>
+            <div className="section-number">03 / 使用情境</div>
 
             <h2>
-              真實系統畫面，
+              從 LINE 對話開始，
               <br />
-              <span>讓任務與會議各自清楚。</span>
+              <span>讓工作資訊自動被整理。</span>
             </h2>
 
             <p>
-              從 LINE 對話中整理工作事項，
+              AI 從日常 LINE 溝通中辨識工作與會議資訊，
               <br />
-              並將工作任務與會議資訊分開管理。
+              自動轉換成清楚、可管理的工作內容。
             </p>
           </div>
 
@@ -411,7 +426,7 @@ function App() {
             <div className="system-highlight-icon">✓</div>
 
             <div>
-              <span>SEPARATE WORKFLOW</span>
+              <span>AI WORKFLOW</span>
               <h3>任務與會議分開管理</h3>
               <p>
                 工作任務進入任務管理流程，
@@ -425,7 +440,7 @@ function App() {
         {/* Architecture */}
         <section className="section architecture-section" id="architecture">
           <div className="section-heading centered">
-            <div className="section-number">04 / 系統架構</div>
+            <div className="section-number">04 / 服務流程</div>
             <h2>
               LINE × AI ×
               <br />
@@ -478,11 +493,11 @@ function App() {
           </div>
 
           <div className="tech-tags">
-            <span>LINE Messaging API</span>
-            <span>AI / LLM</span>
-            <span>Supabase</span>
-            <span>Edge Functions</span>
-            <span>LIFF</span>
+              <span>LINE 即時蒐集</span>
+              <span>AI 智慧辨識</span>
+              <span>任務自動建立</span>
+              <span>團隊集中管理</span>
+              <span>精準通知推播</span>
             </div>
         </section>
 
@@ -506,28 +521,32 @@ function App() {
               <thead>
                 <tr>
                   <th>功能</th>
+
                   <th className="highlight-column">
                     <div className="product-head">
-                      <strong>任務蒐集助理機器人</strong>
+                      <strong>任務蒐集助理</strong>
                       <small>我們的方案</small>
                     </div>
                   </th>
+
                   <th>
                     <div className="product-head">
-                      <span className="product-dot gray">L</span>
-                      <strong>LINE 人工管理</strong>
+        
+                      <strong>LINE 人工作業</strong>
                     </div>
                   </th>
+
                   <th>
                     <div className="product-head">
-                      <span className="product-dot gray">T</span>
-                      <strong>Trello</strong>
+                     
+                      <strong>一般任務管理工具</strong>
                     </div>
                   </th>
+
                   <th>
                     <div className="product-head">
-                      <span className="product-dot gray">A</span>
-                      <strong>Asana</strong>
+          
+                      <strong>企業專案管理系統</strong>
                     </div>
                   </th>
                 </tr>
@@ -576,7 +595,10 @@ function App() {
             </p>
 
             <div className="hero-actions">
-              <a href="mailto:contact@example.com" className="primary-button">
+              <a href="https://sites.google.com/suros.com.tw/suros-inc/%E8%81%AF%E7%B5%A1%E6%88%91%E5%80%91" 
+                 className="primary-button"
+                 target="_blank"
+                 rel="noopener noreferrer">
                 聯絡我們 <span>→</span>
               </a>
 
