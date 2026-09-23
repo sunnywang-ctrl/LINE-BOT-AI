@@ -69,17 +69,12 @@ const services = [
     title: "權限管理設定",
     text: "管理員可查看群組內所有任務，統一管理任務、負責人與任務進度。",
   },
-  {
-    icon: "✦",
-    title: "Google 試算表串接",
-    text: "串接 Google 試算表，讓任務資料可同步管理，方便團隊查看與維護。",
-  },
+ 
 ];
 
 const comparisonRows = [
   ["LINE 直接建立任務", true, true, false, false],
-  ["AI 自動辨識任務", true, false, "△","△"],
-  ["自動擷取任務資訊", true, false, false, false],
+  ["AI 自動辨識任務擷取資訊", true, false, "△","△"],
   ["自動辨識負責人／團隊", true, false, false, false],
   ["圖片內容辨識", true, false, "△", "△"],
   ["不需改變 LINE 使用習慣", true, true, false, false],
@@ -87,7 +82,6 @@ const comparisonRows = [
   ["LINE 任務互動操作", true, true, false, false],
   ["1:1 LINE 私訊推播", true, true, false, false],
   ["會議資訊獨立管理", true, false,"△","△"],
-  ["Google 試算表串接", true, false, "△", "△"],
 ];
 
 function Check({ value }) {
@@ -349,11 +343,35 @@ function App() {
           </div>
 
           <div className="system-showcase">
+            {/* LINE 任務抓取 */}
+              <div className="system-card">
+                <div className="system-card-header">
+                  <span className="system-number">01</span>
+                  <div>
+                    <strong>LINE 任務智慧抓取</strong>
+                    <p>文字、貼圖與圖片辨識</p>
+                  </div>
+                </div>
+
+                <div className="phone-frame">
+                  <img
+                    src="/images/line-task-ai.png"
+                    alt="LINE 任務與圖片辨識"
+                  />
+                </div>
+
+                <div className="system-description">
+                  AI 從 LINE 對話中辨識工作內容，
+                  即使透過貼圖或圖片回覆，也能協助建立任務小卡。
+                </div>
+              </div>
+
+             
 
             {/* 我的任務 */}
             <div className="system-card">
               <div className="system-card-header">
-                <span className="system-number">01</span>
+                <span className="system-number">02</span>
                 <div>
                   <strong>我的任務</strong>
                   <p>個人工作事項</p>
@@ -373,28 +391,9 @@ function App() {
               </div>
             </div>
 
-            {/* 行事曆 */}
-            <div className="system-card featured">
-              <div className="system-card-header">
-                <span className="system-number">02</span>
-                <div>
-                  <strong>行事曆</strong>
-                  <p>會議資訊管理</p>
-                </div>
-              </div>
-
-              <div className="phone-frame">
-                <img
-                  src="/images/calendar.png"
-                  alt="會議行事曆"
-                />
-              </div>
-
-              <div className="system-description">
-                專門整理會議與會議通知，
-                讓會議資訊不與工作任務混在一起。
-              </div>
-            </div>
+            
+            
+            
 
             {/* 全群管理 */}
             <div className="system-card">
@@ -417,8 +416,52 @@ function App() {
                 管理者查看群組內任務、
                 負責人與進度，掌握團隊整體工作狀況。
               </div>
+              
             </div>
+           {/* 會議抓取 */}
+              <div className="system-card">
+                <div className="system-card-header">
+                  <span className="system-number">04</span>
+                  <div>
+                    <strong>會議資訊抓取</strong>
+                    <p>會議與任務分開管理</p>
+                  </div>
+                </div>
 
+                <div className="phone-frame">
+                  <img
+                    src="/images/meeting-ai.png"
+                    alt="會議資訊抓取"
+                  />
+                </div>
+
+                <div className="system-description">
+                  從 LINE 對話中辨識會議資訊，
+                  並獨立整理至會議管理流程。
+                </div>
+              </div>
+            {/* 行事曆 */}
+            <div className="system-card featured">
+              <div className="system-card-header">
+                <span className="system-number">05</span>
+                <div>
+                  <strong>行事曆</strong>
+                  <p>會議資訊管理</p>
+                </div>
+              </div>
+
+              <div className="phone-frame">
+                <img
+                  src="/images/calendar.png"
+                  alt="會議行事曆"
+                />
+              </div>
+
+              <div className="system-description">
+                專門整理會議與會議通知，
+                讓會議資訊不與工作任務混在一起。
+              </div>
+            </div>
           </div>
 
           {/* 任務 / 會議分流 */}
