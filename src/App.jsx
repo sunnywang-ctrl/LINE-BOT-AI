@@ -578,6 +578,9 @@ function App() {
               我們更著重於讓任務從日常溝通中自然產生。
             </p>
           </div>
+          <div className="scroll-hint">
+            左右滑動查看完整比較 <span>→</span>
+          </div>
 
           <div className="comparison-wrapper">
             <table className="comparison-table">
