@@ -142,7 +142,7 @@ function App() {
             <a href="#compare">方案比較</a>
           </nav>
 
-          <a href="https://sites.google.com/suros.com.tw" 
+          <a href="https://www.suros.com.tw/" 
              className="primary-button"
              target="_blank"
              rel="noopener noreferrer">
