@@ -100,11 +100,8 @@ function App() {
       {/* Navbar */}
       <header className="navbar">
         <div className="nav-inner">
-          <a href="#top" className="brand">
-            <div className="brand-logo">
-              <span className="logo-s">S</span>
-              <span className="logo-text">UROS</span>
-            </div>
+           <a href="#top" className="brand">
+            <img src="/images/logo.png" alt="SUROS" className="brand-logo" />
 
             <div>
               <strong>任務蒐集助理機器人</strong>

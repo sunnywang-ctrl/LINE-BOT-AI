@@ -112,36 +112,11 @@ button {
 }
 
 .brand-logo {
-  display: flex;
-  align-items: center;
-
-  color: var(--red);
-
-  font-family: Arial, sans-serif;
-
-  font-size: 30px;
-  font-weight: 800;
-
-  letter-spacing: -1px;
-
-  line-height: 1;
+  height: 32px;   /* 依導覽列高度調整 */
+  width: auto;
+  display: block;
 }
 
-.logo-s {
-  color: var(--red);
-
-  font-size: 25px;
-  font-weight: 900;
-
-  margin-right: 1px;
-}
-
-.logo-text {
-  color: var(--red);
-
-  font-size: 25px;
-  font-weight: 800;
-}
 
 .brand strong {
   display: block;
