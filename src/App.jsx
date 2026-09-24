@@ -683,8 +683,6 @@ function App() {
                 </div>
               </a>
             </div>
-
-            <div className="contact-company">SUROS 誠士資訊股份有限公司</div>
           </div>
         </section>
       </main>
