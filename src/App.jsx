@@ -1,5 +1,5 @@
 import "./App.css";
-
+import { useState } from "react";
 const painPoints = [
   {
     number: "01",
@@ -120,6 +120,7 @@ function ServiceCard({ item, index }) {
   );
 }
 function App() {
+  const [tableAtEnd, setTableAtEnd] = useState(false);
   return (
     <div className="site">
       {/* Navbar */}
@@ -578,11 +579,14 @@ function App() {
               我們更著重於讓任務從日常溝通中自然產生。
             </p>
           </div>
-          <div className="scroll-hint">
-            左右滑動查看完整比較 <span>→</span>
-          </div>
-
-          <div className="comparison-wrapper">
+        <div className={`comparison-scroll${tableAtEnd ? " is-end" : ""}`}>
+          <div
+            className="comparison-wrapper"
+            onScroll={(e) => {
+              const el = e.currentTarget;
+              setTableAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+            }}
+          >
             <table className="comparison-table">
               <thead>
                 <tr>
@@ -597,21 +601,18 @@ function App() {
 
                   <th>
                     <div className="product-head">
-        
                       <strong>LINE 人工作業</strong>
                     </div>
                   </th>
 
                   <th>
                     <div className="product-head">
-                     
                       <strong>一般任務管理工具</strong>
                     </div>
                   </th>
 
                   <th>
                     <div className="product-head">
-          
                       <strong>企業專案管理系統</strong>
                     </div>
                   </th>
@@ -633,6 +634,9 @@ function App() {
               </tbody>
             </table>
           </div>
+
+          <span className="table-arrow" aria-hidden="true">›</span>
+        </div>
 
           <div className="comparison-note">
             <span>核心差異</span>

@@ -1208,14 +1208,18 @@ button:focus-visible {
   box-shadow: var(--shadow-sm);
 }
 
-/* 手機版「左右滑動」提示，電腦版隱藏 */
-.scroll-hint {
+/* 表格外框：用來放右側箭頭與漸層，電腦版隱藏箭頭 */
+.comparison-scroll {
+  position: relative;
+}
+
+.table-arrow {
   display: none;
 }
 
-@keyframes hint-nudge {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(6px); }
+@keyframes arrow-nudge {
+  0%, 100% { transform: translate(0, -50%); }
+  50% { transform: translate(5px, -50%); }
 }
 
 .comparison-table {
@@ -1950,27 +1954,45 @@ button:focus-visible {
     font-size: 11px;
   }
 
-  .scroll-hint {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 6px;
-    margin-bottom: 8px;
-    color: var(--text-light);
-    font-size: 12px;
+  /* 表格右側漸層 + 箭頭，滑到最右邊時自動消失 */
+  .comparison-scroll::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    width: 48px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95));
+    border-radius: 0 5px 5px 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
   }
 
-  .scroll-hint span {
-    display: inline-flex;
+  .table-arrow {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
     background: var(--blue);
     border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(21, 94, 239, 0.3);
     color: var(--white);
-    font-size: 12px;
-    animation: hint-nudge 1.2s ease-in-out infinite;
+    font-size: 18px;
+    line-height: 1;
+    pointer-events: none;
+    transform: translate(0, -50%);
+    animation: arrow-nudge 1.2s ease-in-out infinite;
+    transition: opacity 0.2s ease;
+  }
+
+  .comparison-scroll.is-end::after,
+  .comparison-scroll.is-end .table-arrow {
+    opacity: 0;
   }
 
   .comparison-note {
