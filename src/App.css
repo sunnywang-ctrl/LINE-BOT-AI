@@ -1372,7 +1372,7 @@ button:focus-visible {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
@@ -1424,10 +1424,14 @@ button:focus-visible {
   margin-top: 2px;
   color: var(--white);
   font-family: Arial, "Noto Sans TC", sans-serif;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  word-break: break-all;
+  white-space: nowrap;
+}
+
+.contact-card > div {
+  min-width: 0;
 }
 
 .contact-company {
@@ -1964,6 +1968,8 @@ button:focus-visible {
 
   .contact-card strong {
     font-size: 16px;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   /* ---------- Footer ---------- */
