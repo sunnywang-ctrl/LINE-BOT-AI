@@ -36,6 +36,12 @@ const services = [
   },
   {
     icon: "✦",
+    title: "1:1 私訊推播",
+    text: "在 LINE 免費訊息額度內，將任務或重要通知推播至指定成員的私人聊天室。",
+    custom: true,
+  },
+  {
+    icon: "✦",
     title: "圖片識別",
     text: "AI 可分析 LINE 中的圖片內容，協助辨識圖片中的任務與相關資訊。",
   },
@@ -46,18 +52,25 @@ const services = [
   },
   {
     icon: "✦",
+    title: "試算表連接",
+    text: "將任務資料與企業現有的試算表串接，方便彙整、匯出與製作報表。",
+    custom: true,
+  },
+  {
+    icon: "✦",
     title: "會議管理系統",
     text: "將 LINE 中的會議資訊獨立整理，與一般工作任務清楚區隔。",
   },
   {
     icon: "✦",
-    title: "1:1 私訊推播",
-    text: "在 LINE 免費訊息額度內，將任務或重要通知推播至指定成員的私人聊天室。",
+    title: "LINE 通知與互動",
+    text: "任務建立後即時回傳任務小卡，支援群組內直接認領、完成、婉拒及確認任務資訊。",
   },
   {
     icon: "✦",
-    title: "LINE 通知與互動",
-    text: "任務建立後即時回傳任務小卡，支援群組內直接認領、完成、婉拒及確認任務資訊。",
+    title: "Gmail 任務統整通知",
+    text: "統整所有任務內容，透過 Gmail 寄送任務摘要與提醒給相關成員。",
+    custom: true,
   },
   {
     icon: "✦",
@@ -69,7 +82,6 @@ const services = [
     title: "權限管理設定",
     text: "管理員可查看群組內所有任務，統一管理任務、負責人與任務進度。",
   },
- 
 ];
 
 const comparisonRows = [
@@ -93,7 +105,20 @@ function Check({ value }) {
     <span className="compare-x">—</span>
   );
 }
+function ServiceCard({ item, index }) {
+  return (
+    <article className={`service-card${item.custom ? " is-custom" : ""}`}>
+      <div className="service-icon">{item.icon}</div>
+      <div className="service-index">
+        {String(index + 1).padStart(2, "0")}
+      </div>
 
+      <h3>{item.title}</h3>
+      <p>{item.text}</p>
+      <div className="service-arrow">↗</div>
+    </article>
+  );
+}
 function App() {
   return (
     <div className="site">
@@ -117,11 +142,11 @@ function App() {
             <a href="#compare">方案比較</a>
           </nav>
 
-          <a href="https://sites.google.com/suros.com.tw/suros-inc/%E8%81%AF%E7%B5%A1%E6%88%91%E5%80%91" 
+          <a href="https://sites.google.com/suros.com.tw" 
              className="primary-button"
              target="_blank"
              rel="noopener noreferrer">
-             聯絡我們
+             回到官網
           </a>
         </div>
       </header>
@@ -304,23 +329,21 @@ function App() {
             </p>
           </div>
 
+          <div className="service-legend">
+            <span className="legend-star">✦</span>
+            為客製化項目
+          </div>
+
           <div className="service-grid">
             {services.map((item, index) => (
-              <article className="service-card" key={item.title}>
-                <div className="service-icon">
-                  {index === 0 ? "✦" : item.icon}
-                </div>
-                <div className="service-index">
-                  0{index + 1}
-                </div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-                <div className="service-arrow">↗</div>
-              </article>
+              <ServiceCard item={item} index={index} key={item.title} />
             ))}
           </div>
-        </section>
 
+          <p className="service-note">
+            ※ 客製化項目需依企業需求評估規劃，功能細節與費用請洽詢業務。
+          </p>
+        </section>
        {/* Scenario */}
         <section className="section scenario-section" id="scenario">
           <div className="section-heading centered">
@@ -616,12 +639,12 @@ function App() {
           </div>
         </section>
 
-        {/* CTA */}
+        {/* Contact */}
         <section className="cta-section" id="contact">
           <div className="cta-glow"></div>
 
           <div className="cta-content">
-            <div className="section-number">START WITH YOUR WORKFLOW</div>
+            <div className="section-number">06 / 聯絡我們</div>
 
             <h2>
               讓每一句
@@ -630,22 +653,38 @@ function App() {
             </h2>
 
             <p>
-              從現有的 LINE 工作環境開始，
-              建立更簡單、更有效率的企業任務管理流程。
+              想了解導入方式、客製化項目或方案內容，
+              歡迎直接與我們的業務團隊聯繫。
             </p>
 
-            <div className="hero-actions">
-              <a href="https://sites.google.com/suros.com.tw/suros-inc/%E8%81%AF%E7%B5%A1%E6%88%91%E5%80%91" 
-                 className="primary-button"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                聯絡我們 <span>→</span>
+            <div className="contact-grid">
+              <a href="tel:+886227048866" className="contact-card">
+                <span className="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                </span>
+                <div>
+                  <small>電話 TEL</small>
+                  <strong>+886-2-2704-8866</strong>
+                </div>
               </a>
 
-              <a href="#top" className="secondary-button">
-                回到首頁
+              <a href="mailto:service1@suros.com.tw" className="contact-card">
+                <span className="contact-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </span>
+                <div>
+                  <small>電子郵件 E-mail</small>
+                  <strong>service1@suros.com.tw</strong>
+                </div>
               </a>
             </div>
+
+            <div className="contact-company">SUROS 誠士資訊股份有限公司</div>
           </div>
         </section>
       </main>
