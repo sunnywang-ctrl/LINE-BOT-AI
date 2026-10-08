@@ -237,7 +237,7 @@ button:focus-visible {
   width: 100%;
 }
 
-/* 導覽列上的「聯絡我們」按鈕比一般按鈕小一點 */
+/* 導覽列上的「回到官網」按鈕比一般按鈕小一點 */
 .navbar .primary-button {
   min-height: 40px;
   padding: 0 19px;
@@ -812,6 +812,27 @@ button:focus-visible {
   gap: 18px;
 }
 
+/* 左 2 欄標準 + 右 1 欄客製化，兩邊等高、每列對齊 */
+.service-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+  margin-top: 36px; /* 留空間給右上角圖例 */
+}
+
+.service-grid--standard {
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 1fr;
+}
+
+.service-custom-col {
+  position: relative;
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 18px;
+}
+
 .service-card {
   position: relative;
   min-height: 235px;
@@ -875,29 +896,7 @@ button:focus-visible {
   color: var(--blue);
   font-size: 17px;
 }
-/* 客製化分組標題 */
-.service-group-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 40px 0 16px;
-  font-size: 15px;
-  font-weight: 700;
-  color: #dc2626;
-}
 
-/* 4 個客製化項目排成一排 */
-.service-grid--custom {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-@media (max-width: 1100px) {
-  .service-grid--custom { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-@media (max-width: 640px) {
-  .service-grid--custom { grid-template-columns: 1fr; }
-}
 /* ---------- 客製化：星星圖示改紅色 ---------- */
 
 .service-card.is-custom .service-icon {
@@ -905,15 +904,20 @@ button:focus-visible {
   color: var(--red);
 }
 
-/* 卡片上方的圖例 */
+/* 右欄上方的圖例 */
 .service-legend {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 6px;
-  margin-bottom: 12px;
   color: var(--text-light);
   font-size: 12px;
+}
+
+.service-custom-col .service-legend {
+  position: absolute;
+  top: -30px;
+  right: 0;
 }
 
 .legend-star {
@@ -1530,6 +1534,298 @@ button:focus-visible {
 }
 
 /* =========================================================
+   14. 特效
+========================================================= */
+
+/* ---------- 共用 keyframes ---------- */
+
+@keyframes fx-fade-up {
+  from { opacity: 0; translate: 0 24px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes fx-pop-in {
+  from { opacity: 0; translate: 0 10px; scale: 0.96; }
+  to   { opacity: 1; translate: 0 0;    scale: 1; }
+}
+
+@keyframes fx-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -8px; }
+}
+
+@keyframes fx-pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(217, 45, 32, 0.45); }
+  100% { box-shadow: 0 0 0 9px rgba(217, 45, 32, 0); }
+}
+
+@keyframes fx-twinkle {
+  0%, 100% { opacity: 1;   scale: 1; }
+  50%      { opacity: 0.4; scale: 0.75; }
+}
+
+@keyframes fx-shine {
+  to { background-position: -200% 0; }
+}
+
+@keyframes fx-card-glow {
+  0%   { box-shadow: 0 0 0 0 rgba(217, 45, 32, 0.35); }
+  100% { box-shadow: 0 0 0 12px rgba(217, 45, 32, 0); }
+}
+
+@keyframes fx-nudge-x {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 6px 0; }
+}
+
+@keyframes fx-flow-down {
+  0%   { top: -3px; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { top: calc(100% - 3px); opacity: 0; }
+}
+
+@keyframes fx-node-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(21, 94, 239, 0); }
+  50%      { box-shadow: 0 0 24px 2px rgba(21, 94, 239, 0.35); }
+}
+
+@keyframes fx-drift {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: -60px 40px; }
+}
+
+/* ---------- 1. 滾動淡入（JS 自動加 .reveal / .is-visible） ----------
+   用 translate 而不是 transform，才不會蓋掉卡片原本的 hover 上浮 */
+
+.reveal {
+  opacity: 0;
+  translate: 0 28px;
+  transition-property: opacity, translate, transform, box-shadow, border-color, background;
+  transition-duration: 0.7s, 0.7s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms), var(--reveal-delay, 0ms), 0s, 0s, 0s, 0s;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ---------- 2. 導覽列：捲動陰影 + 閱讀進度條 ---------- */
+
+.navbar {
+  transition: box-shadow 0.25s ease;
+}
+
+.navbar.is-scrolled {
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--red));
+  transform: scaleX(var(--scroll-progress, 0));
+  transform-origin: left;
+}
+
+/* ---------- 3. Hero：進場 + 對話依序出現 ---------- */
+
+.hero-content > * {
+  animation: fx-fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hero-content > :nth-child(1) { animation-delay: 0.05s; }
+.hero-content > :nth-child(2) { animation-delay: 0.15s; }
+.hero-content > :nth-child(3) { animation-delay: 0.25s; }
+.hero-content > :nth-child(4) { animation-delay: 0.35s; }
+.hero-content > :nth-child(5) { animation-delay: 0.45s; }
+
+.hero-visual .phone {
+  animation: fx-fade-up 0.9s 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* 主管訊息 → AI 辨識 → 小明回覆 */
+.chat .message,
+.chat .ai-analysis {
+  animation: fx-pop-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1.2) both;
+}
+.chat .message:not(.user-message) { animation-delay: 1s; }
+.chat .ai-analysis               { animation-delay: 1.8s; }
+.chat .user-message              { animation-delay: 3s; }
+
+/* 任務卡出現後閃兩下紅光 */
+.chat .task-card {
+  animation: fx-card-glow 1.4s 2.3s ease-out 2;
+}
+
+/* 浮動標籤：跟著劇情出現，之後輕輕漂浮 */
+.label-ai {
+  animation:
+    fx-pop-in 0.5s 1.7s both,
+    fx-float 4s 2.2s ease-in-out infinite;
+}
+
+.label-task {
+  animation:
+    fx-pop-in 0.5s 2.4s both,
+    fx-float 4.5s 2.9s ease-in-out infinite;
+}
+
+/* 紅點脈衝、星星閃爍 */
+.status-dot {
+  animation: fx-pulse-ring 1.8s ease-out infinite;
+}
+
+.ai-title span,
+.label-ai span {
+  display: inline-block;
+  animation: fx-twinkle 2.2s ease-in-out infinite;
+}
+
+.solution-icon {
+  animation: fx-twinkle 2.2s ease-in-out infinite;
+}
+
+/* 標題紅字流光 */
+.hero h1 span {
+  background: linear-gradient(90deg, var(--red) 0%, #ff7a6b 25%, var(--red) 50%, #ff7a6b 75%, var(--red) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fx-shine 6s linear infinite;
+}
+
+/* ---------- 4. 按鈕 hover 掃光 ---------- */
+
+.primary-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.primary-button:hover::after {
+  left: 125%;
+}
+
+/* ---------- 5. 痛點卡 ---------- */
+
+.problem-line {
+  transition: width 0.3s ease;
+}
+
+.problem-card:hover .problem-line {
+  width: 56px;
+}
+
+.solution-arrow {
+  animation: fx-nudge-x 1.6s ease-in-out infinite;
+}
+
+/* ---------- 6. 服務卡 hover ---------- */
+
+.service-card {
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--red));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.service-card.is-custom::before {
+  background: var(--red);
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-icon {
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1.3);
+}
+
+.service-card:hover .service-icon {
+  transform: rotate(90deg) scale(1.08);
+}
+
+.service-arrow {
+  transition: transform 0.25s ease;
+}
+
+.service-card:hover .service-arrow {
+  transform: translate(3px, -3px);
+}
+
+/* ---------- 7. 架構圖：資料流動的光點 ---------- */
+
+.architecture-line {
+  position: relative;
+}
+
+.architecture-line::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: #9dbfff;
+  box-shadow: 0 0 8px #9dbfff;
+  animation: fx-flow-down 1.6s linear infinite;
+}
+
+.architecture-line:nth-child(4)::after { animation-delay: 0.4s; }
+.architecture-line:nth-child(6)::after { animation-delay: 0.8s; }
+.architecture-line:nth-child(8)::after { animation-delay: 1.2s; }
+
+.ai-node {
+  animation: fx-node-glow 3s ease-in-out infinite;
+}
+
+/* ---------- 8. 比較表：打勾逐列彈出 ---------- */
+
+.comparison-scroll.is-visible .compare-check,
+.comparison-scroll.is-visible .compare-dash {
+  display: inline-block;
+  animation: fx-pop-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.4) both;
+  animation-delay: calc(0.3s + var(--row, 0) * 0.07s);
+}
+
+/* ---------- 9. CTA 背景光暈漂移 ---------- */
+
+.cta-glow {
+  animation: fx-drift 12s ease-in-out infinite;
+}
+
+/* =========================================================
    RWD ─ 平板橫向 (≤1100px)
 ========================================================= */
 
@@ -1592,6 +1888,24 @@ button:focus-visible {
 
   .service-card {
     min-height: auto;
+  }
+
+  /* 服務：客製化欄改到標準功能下方 */
+  .service-layout {
+    grid-template-columns: 1fr;
+    margin-top: 0;
+  }
+
+  .service-custom-col {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+  }
+
+  .service-custom-col .service-legend {
+    position: static;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    margin-top: 14px;
   }
 
   /* 使用情境改兩欄 */
@@ -1815,8 +2129,14 @@ button:focus-visible {
 
   /* ---------- 服務：改成較精簡的橫向卡片 ---------- */
 
-  .service-grid {
+  .service-layout {
+    gap: 10px;
+  }
+
+  .service-grid,
+  .service-custom-col {
     grid-template-columns: 1fr;
+    grid-auto-rows: auto;
     gap: 10px;
   }
 
@@ -1851,10 +2171,6 @@ button:focus-visible {
 
   .service-arrow {
     display: none;
-  }
-
-  .service-legend {
-    justify-content: flex-start;
   }
 
   .service-note {
@@ -2101,6 +2417,10 @@ button:focus-visible {
   .service-card:hover {
     transform: none;
   }
+
+  .service-card:hover .service-icon {
+    transform: none;
+  }
 }
 
 /* =========================================================
@@ -2112,10 +2432,17 @@ button:focus-visible {
     scroll-behavior: auto;
   }
 
+  .reveal {
+    opacity: 1;
+    translate: none;
+  }
+
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
   }
 }

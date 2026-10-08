@@ -1,5 +1,13 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  LineTaskChatMock,
+  MyTasksMock,
+  AllTasksMock,
+  MeetingChatMock,
+  CalendarMock,
+} from "./PhoneMockups";
+
 const painPoints = [
   {
     number: "01",
@@ -85,17 +93,75 @@ const services = [
   },
 ];
 
+const standardServices = services.filter((s) => !s.custom);
+const customServices = services.filter((s) => s.custom);
+
 const comparisonRows = [
   ["LINE 直接建立任務", true, true, false, false],
-  ["AI 自動辨識任務擷取資訊", true, false, "△","△"],
+  ["AI 自動辨識任務擷取資訊", true, false, "△", "△"],
   ["自動辨識負責人／團隊", true, false, false, false],
   ["圖片內容辨識", true, false, "△", "△"],
   ["不需改變 LINE 使用習慣", true, true, false, false],
   ["即時任務小卡", true, false, false, false],
   ["LINE 任務互動操作", true, true, false, false],
   ["1:1 LINE 私訊推播", true, true, false, false],
-  ["會議資訊獨立管理", true, false,"△","△"],
+  ["會議資訊獨立管理", true, false, "△", "△"],
 ];
+
+/* 會套用「滾動淡入」的元素：只有 01 主要問題，02 之後直接顯示 */
+const REVEAL_SELECTOR = [
+  "#problem .section-heading",
+  "#problem .problem-card",
+  "#problem .solution-banner",
+].join(",");
+
+/* 頁面特效：滾動淡入、導覽列陰影、閱讀進度條 */
+function usePageEffects() {
+  useEffect(() => {
+    const targets = [...document.querySelectorAll(REVEAL_SELECTOR)];
+    let io;
+
+    if ("IntersectionObserver" in window) {
+      targets.forEach((el) => {
+        const siblings = [...el.parentElement.children].filter((c) =>
+          c.matches(REVEAL_SELECTOR)
+        );
+        const i = Math.min(siblings.indexOf(el), 6);
+        el.style.setProperty("--reveal-delay", `${i * 80}ms`);
+        el.classList.add("reveal");
+      });
+
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+      );
+
+      targets.forEach((el) => io.observe(el));
+    }
+
+    const navbar = document.querySelector(".navbar");
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? window.scrollY / max : 0;
+      document.documentElement.style.setProperty("--scroll-progress", progress);
+      navbar?.classList.toggle("is-scrolled", window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      io?.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+}
 
 function Check({ value }) {
   if (value === "△") return <span className="compare-dash">△</span>;
@@ -106,6 +172,7 @@ function Check({ value }) {
     <span className="compare-x">—</span>
   );
 }
+
 function ServiceCard({ item, index }) {
   return (
     <article className={`service-card${item.custom ? " is-custom" : ""}`}>
@@ -120,14 +187,17 @@ function ServiceCard({ item, index }) {
     </article>
   );
 }
+
 function App() {
+  usePageEffects();
   const [tableAtEnd, setTableAtEnd] = useState(false);
+
   return (
     <div className="site">
       {/* Navbar */}
       <header className="navbar">
         <div className="nav-inner">
-           <a href="#top" className="brand">
+          <a href="#top" className="brand">
             <img src="/images/logo.png" alt="SUROS" className="brand-logo" />
 
             <div>
@@ -144,11 +214,13 @@ function App() {
             <a href="#compare">方案比較</a>
           </nav>
 
-          <a href="https://www.suros.com.tw/" 
-             className="primary-button"
-             target="_blank"
-             rel="noopener noreferrer">
-             回到官網
+          <a
+            href="https://www.suros.com.tw/"
+            className="primary-button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            回到官網
           </a>
         </div>
       </header>
@@ -278,8 +350,6 @@ function App() {
           </div>
         </section>
 
-  
-
         {/* Problem */}
         <section className="section problem-section" id="problem">
           <div className="section-heading">
@@ -317,57 +387,51 @@ function App() {
         </section>
 
         {/* Services */}
-          <section className="section service-section" id="service">
-            <div className="section-heading centered">
-              <div className="section-number">02 / 功能服務</div>
-              <h2>
-                從一句話開始，
-                <br />
-                <span>完成整個任務流程。</span>
-              </h2>
-              <p>
-                不需要重新學習一套複雜的工作系統，
-                直接利用團隊熟悉的 LINE 完成任務管理。
-              </p>
+        <section className="section service-section" id="service">
+          <div className="section-heading centered">
+            <div className="section-number">02 / 功能服務</div>
+            <h2>
+              從一句話開始，
+              <br />
+              <span>完成整個任務流程。</span>
+            </h2>
+            <p>
+              不需要重新學習一套複雜的工作系統，
+              直接利用團隊熟悉的 LINE 完成任務管理。
+            </p>
+          </div>
+
+          <div className="service-layout">
+            {/* 左：標準功能（兩欄） */}
+            <div className="service-grid service-grid--standard">
+              {standardServices.map((item, index) => (
+                <ServiceCard item={item} index={index} key={item.title} />
+              ))}
             </div>
 
-            {(() => {
-              const standard = services.filter((s) => !s.custom);
-              const custom = services.filter((s) => s.custom);
+            {/* 右：客製化功能（直排一欄） */}
+            <div className="service-custom-col">
+              <div className="service-legend">
+                <span className="legend-star">✦</span>
+                為客製化項目
+              </div>
 
-              return (
-                <>
-                  {/* 標準功能 */}
-                  <div className="service-grid">
-                    {standard.map((item, index) => (
-                      <ServiceCard item={item} index={index} key={item.title} />
-                    ))}
-                  </div>
+              {customServices.map((item, index) => (
+                <ServiceCard
+                  item={item}
+                  index={standardServices.length + index}
+                  key={item.title}
+                />
+              ))}
+            </div>
+          </div>
 
-                  {/* 客製化功能：獨立一排 */}
-                  <div className="service-group-label">
-                    <span className="legend-star">✦</span>
-                    客製化項目
-                  </div>
+          <p className="service-note">
+            ※ 客製化項目需依企業需求評估規劃，功能細節與費用請洽詢業務。
+          </p>
+        </section>
 
-                  <div className="service-grid service-grid--custom">
-                    {custom.map((item, index) => (
-                      <ServiceCard
-                        item={item}
-                        index={standard.length + index}
-                        key={item.title}
-                      />
-                    ))}
-                  </div>
-                </>
-              );
-            })()}
-
-            <p className="service-note">
-              ※ 客製化項目需依企業需求評估規劃，功能細節與費用請洽詢業務。
-            </p>
-          </section>
-       {/* Scenario */}
+        {/* Scenario */}
         <section className="section scenario-section" id="scenario">
           <div className="section-heading centered">
             <div className="section-number">03 / 使用情境</div>
@@ -387,29 +451,22 @@ function App() {
 
           <div className="system-showcase">
             {/* LINE 任務抓取 */}
-              <div className="system-card">
-                <div className="system-card-header">
-                  <span className="system-number">01</span>
-                  <div>
-                    <strong>LINE 任務智慧抓取</strong>
-                    <p>文字、貼圖與圖片辨識</p>
-                  </div>
-                </div>
-
-                <div className="phone-frame">
-                  <img
-                    src="/images/line-task-ai.png"
-                    alt="LINE 任務與圖片辨識"
-                  />
-                </div>
-
-                <div className="system-description">
-                  AI 從 LINE 對話中辨識工作內容，
-                  即使透過貼圖或圖片回覆，也能協助建立任務小卡。
+            <div className="system-card">
+              <div className="system-card-header">
+                <span className="system-number">01</span>
+                <div>
+                  <strong>LINE 任務智慧抓取</strong>
+                  <p>文字、貼圖與圖片辨識</p>
                 </div>
               </div>
 
-             
+              <LineTaskChatMock />
+
+              <div className="system-description">
+                AI 從 LINE 對話中辨識工作內容，
+                即使透過貼圖或圖片回覆，也能協助建立任務小卡。
+              </div>
+            </div>
 
             {/* 我的任務 */}
             <div className="system-card">
@@ -421,22 +478,13 @@ function App() {
                 </div>
               </div>
 
-              <div className="phone-frame">
-                <img
-                  src="/images/my-tasks.png"
-                  alt="我的任務"
-                />
-              </div>
+              <MyTasksMock />
 
               <div className="system-description">
                 集中查看自己需要處理的任務，
                 掌握負責事項與目前進度。
               </div>
             </div>
-
-            
-            
-            
 
             {/* 全群管理 */}
             <div className="system-card">
@@ -448,41 +496,32 @@ function App() {
                 </div>
               </div>
 
-              <div className="phone-frame">
-                <img
-                  src="/images/all-tasks.png"
-                  alt="全群任務管理"
-                />
-              </div>
+              <AllTasksMock />
 
               <div className="system-description">
                 管理者查看群組內任務、
                 負責人與進度，掌握團隊整體工作狀況。
               </div>
-              
             </div>
-           {/* 會議抓取 */}
-              <div className="system-card">
-                <div className="system-card-header">
-                  <span className="system-number">04</span>
-                  <div>
-                    <strong>會議資訊抓取</strong>
-                    <p>會議與任務分開管理</p>
-                  </div>
-                </div>
 
-                <div className="phone-frame">
-                  <img
-                    src="/images/meeting-ai.png"
-                    alt="會議資訊抓取"
-                  />
-                </div>
-
-                <div className="system-description">
-                  從 LINE 對話中辨識會議資訊，
-                  並獨立整理至會議管理流程。
+            {/* 會議抓取 */}
+            <div className="system-card">
+              <div className="system-card-header">
+                <span className="system-number">04</span>
+                <div>
+                  <strong>會議資訊抓取</strong>
+                  <p>會議與任務分開管理</p>
                 </div>
               </div>
+
+              <MeetingChatMock />
+
+              <div className="system-description">
+                從 LINE 對話中辨識會議資訊，
+                並獨立整理至會議管理流程。
+              </div>
+            </div>
+
             {/* 行事曆 */}
             <div className="system-card featured">
               <div className="system-card-header">
@@ -493,12 +532,7 @@ function App() {
                 </div>
               </div>
 
-              <div className="phone-frame">
-                <img
-                  src="/images/calendar.png"
-                  alt="會議行事曆"
-                />
-              </div>
+              <CalendarMock />
 
               <div className="system-description">
                 專門整理會議與會議通知，
@@ -579,12 +613,12 @@ function App() {
           </div>
 
           <div className="tech-tags">
-              <span>LINE 即時蒐集</span>
-              <span>AI 智慧辨識</span>
-              <span>任務自動建立</span>
-              <span>團隊集中管理</span>
-              <span>精準通知推播</span>
-            </div>
+            <span>LINE 即時蒐集</span>
+            <span>AI 智慧辨識</span>
+            <span>任務自動建立</span>
+            <span>團隊集中管理</span>
+            <span>精準通知推播</span>
+          </div>
         </section>
 
         {/* Comparison */}
@@ -601,64 +635,65 @@ function App() {
               我們更著重於讓任務從日常溝通中自然產生。
             </p>
           </div>
-        <div className={`comparison-scroll${tableAtEnd ? " is-end" : ""}`}>
-          <div
-            className="comparison-wrapper"
-            onScroll={(e) => {
-              const el = e.currentTarget;
-              setTableAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
-            }}
-          >
-            <table className="comparison-table">
-              <thead>
-                <tr>
-                  <th>功能</th>
 
-                  <th className="highlight-column">
-                    <div className="product-head">
-                      <strong>任務蒐集助理</strong>
-                      <small>我們的方案</small>
-                    </div>
-                  </th>
+          <div className={`comparison-scroll${tableAtEnd ? " is-end" : ""}`}>
+            <div
+              className="comparison-wrapper"
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                setTableAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+              }}
+            >
+              <table className="comparison-table">
+                <thead>
+                  <tr>
+                    <th>功能</th>
 
-                  <th>
-                    <div className="product-head">
-                      <strong>LINE 人工作業</strong>
-                    </div>
-                  </th>
+                    <th className="highlight-column">
+                      <div className="product-head">
+                        <strong>任務蒐集助理</strong>
+                        <small>我們的方案</small>
+                      </div>
+                    </th>
 
-                  <th>
-                    <div className="product-head">
-                      <strong>一般任務管理工具</strong>
-                    </div>
-                  </th>
+                    <th>
+                      <div className="product-head">
+                        <strong>LINE 人工作業</strong>
+                      </div>
+                    </th>
 
-                  <th>
-                    <div className="product-head">
-                      <strong>企業專案管理系統</strong>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
+                    <th>
+                      <div className="product-head">
+                        <strong>一般任務管理工具</strong>
+                      </div>
+                    </th>
 
-              <tbody>
-                {comparisonRows.map((row) => (
-                  <tr key={row[0]}>
-                    <td>{row[0]}</td>
-                    <td className="highlight-column">
-                      <Check value={row[1]} />
-                    </td>
-                    <td><Check value={row[2]} /></td>
-                    <td><Check value={row[3]} /></td>
-                    <td><Check value={row[4]} /></td>
+                    <th>
+                      <div className="product-head">
+                        <strong>企業專案管理系統</strong>
+                      </div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
 
-          <span className="table-arrow" aria-hidden="true">›</span>
-        </div>
+                <tbody>
+                  {comparisonRows.map((row) => (
+                    <tr key={row[0]}>
+                      <td>{row[0]}</td>
+                      <td className="highlight-column">
+                        <Check value={row[1]} />
+                      </td>
+                      <td><Check value={row[2]} /></td>
+                      <td><Check value={row[3]} /></td>
+                      <td><Check value={row[4]} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <span className="table-arrow" aria-hidden="true">›</span>
+          </div>
 
           <div className="comparison-note">
             <span>核心差異</span>

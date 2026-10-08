@@ -1,0 +1,1098 @@
+/* =========================================================
+   CSS 手機畫面（取代截圖）
+   字級全部用 em，跟著手機寬度等比例縮放
+========================================================= */
+
+.mk-phone {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 18.5;
+  margin: 24px auto;
+  padding: 6px;
+  background: #111;
+  border-radius: 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  container-type: inline-size;
+  text-align: left;
+}
+
+.mk-screen {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 26px;
+  background: #f6f8fb;
+  color: #1f2937;
+  font-size: 10px; /* 不支援 cqw 的瀏覽器 */
+  font-size: 3.9cqw;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.mk-screen svg {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mk-screen b,
+.mk-screen strong {
+  font-weight: 700;
+}
+
+/* 底部 Home 指示條 */
+.mk-screen::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.5em;
+  width: 35%;
+  height: 0.32em;
+  translate: -50% 0;
+  border-radius: 1em;
+  background: #111;
+  opacity: 0.85;
+}
+
+/* ---------- 狀態列 ---------- */
+
+.mk-status {
+  flex: none;
+  height: 2.6em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.8em 0 2.4em;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.mk-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.mk-signal {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.12em;
+  height: 0.8em;
+}
+
+.mk-signal i {
+  width: 0.22em;
+  background: currentColor;
+  border-radius: 0.1em;
+}
+
+.mk-signal i:nth-child(1) { height: 30%; }
+.mk-signal i:nth-child(2) { height: 55%; }
+.mk-signal i:nth-child(3) { height: 80%; }
+.mk-signal i:nth-child(4) { height: 100%; }
+
+.mk-battery {
+  position: relative;
+  width: 1.9em;
+  height: 0.9em;
+  padding: 0.1em;
+  border: 0.1em solid currentColor;
+  border-radius: 0.25em;
+}
+
+.mk-battery::before {
+  content: "";
+  display: block;
+  width: 75%;
+  height: 100%;
+  background: currentColor;
+  border-radius: 0.1em;
+}
+
+.mk-battery::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -0.3em;
+  width: 0.15em;
+  height: 0.35em;
+  translate: 0 -50%;
+  background: currentColor;
+  border-radius: 0 0.1em 0.1em 0;
+}
+
+/* =========================================================
+   LINE 聊天室
+========================================================= */
+
+.mk-phone--line .mk-screen {
+  background: #8da9d6;
+}
+
+.mk-line-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.3em 1em 0.7em 0.7em;
+  color: #111827;
+}
+
+.mk-line-header strong {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 1.2em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mk-line-header svg {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+/* 訊息區：從底部往上排，超出的舊訊息自動被裁掉 */
+.mk-chat {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.9em;
+  padding: 0.6em 0.9em 0.9em;
+  overflow: hidden;
+}
+
+.mk-msg {
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+
+.mk-avatar {
+  flex: none;
+  width: 2.6em;
+  height: 2.6em;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.mk-avatar--bot {
+  background: #fff;
+  border: 0.15em solid #06c755;
+  color: #06c755;
+}
+
+.mk-msg-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.mk-msg-name {
+  margin-bottom: 0.25em;
+  font-size: 0.85em;
+  color: #1f2937;
+}
+
+.mk-msg-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4em;
+}
+
+.mk-bubble {
+  position: relative;
+  max-width: 80%;
+  padding: 0.55em 0.85em;
+  background: #fff;
+  border-radius: 1.2em;
+  font-size: 1.1em;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.mk-msg:not(.mk-msg--me) .mk-bubble::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: -0.35em;
+  border-top: 0.35em solid transparent;
+  border-bottom: 0.35em solid transparent;
+  border-right: 0.45em solid #fff;
+}
+
+.mk-time {
+  flex: none;
+  font-size: 0.72em;
+  color: rgba(17, 24, 39, 0.6);
+  white-space: nowrap;
+}
+
+/* 自己的訊息 */
+.mk-msg--me {
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 0.4em;
+}
+
+.mk-meta {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.72em;
+  line-height: 1.3;
+  color: rgba(17, 24, 39, 0.6);
+  white-space: nowrap;
+}
+
+.mk-bubble--me {
+  max-width: 75%;
+  background: #85e27a;
+}
+
+.mk-bubble--me::after {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  right: -0.35em;
+  border-top: 0.35em solid transparent;
+  border-bottom: 0.35em solid transparent;
+  border-left: 0.45em solid #85e27a;
+}
+
+.mk-mention {
+  color: #155eef;
+  font-weight: 700;
+}
+
+/* 日期分隔 */
+.mk-date {
+  flex: none;
+  align-self: center;
+  padding: 0.2em 0.9em;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 1em;
+  color: #fff;
+  font-size: 0.85em;
+}
+
+/* 貼圖 */
+.mk-sticker {
+  font-size: 4.2em;
+  line-height: 1;
+}
+
+/* 轉傳的截圖 */
+.mk-shot {
+  width: 8.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 0.6em;
+  background: #1f2937;
+  border-radius: 0.8em;
+}
+
+.mk-shot-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.mk-shot-lines i {
+  display: block;
+  width: 100%;
+  height: 0.35em;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 1em;
+}
+
+.mk-shot-poster {
+  height: 6.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.5em;
+  background: linear-gradient(160deg, #fde68a 0%, #f97316 55%, #7c3aed 100%);
+  border-radius: 0.4em;
+  color: #fff;
+}
+
+.mk-shot-poster small {
+  font-size: 0.6em;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+}
+
+.mk-shot-poster strong {
+  font-size: 0.85em;
+}
+
+/* 機器人任務 / 會議卡（LINE Flex Message） */
+.mk-flex {
+  width: 13.5em;
+  padding: 0.8em 0.9em 0.2em;
+  background: #fff;
+  border-radius: 1em;
+}
+
+.mk-flex-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82em;
+  font-weight: 700;
+}
+
+.mk-flex-tag {
+  color: #dc2626;
+}
+
+.mk-flex-tag--meeting {
+  color: #ea580c;
+}
+
+.mk-flex-pri {
+  color: #f59e0b;
+}
+
+.mk-flex strong {
+  display: block;
+  margin: 0.3em 0 0.25em;
+  font-size: 1.1em;
+  font-weight: 800;
+}
+
+.mk-flex-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.1em 0.8em;
+  font-size: 0.78em;
+  color: #4b5563;
+}
+
+.mk-flex-warn {
+  margin-top: 0.25em;
+  font-size: 0.78em;
+  color: #dc2626;
+}
+
+.mk-flex-note {
+  margin-top: 0.3em;
+  font-size: 0.72em;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+.mk-flex-link {
+  margin-top: 0.5em;
+  padding: 0.6em 0;
+  border-top: 1px solid #f1f5f9;
+  color: #06c755;
+  font-size: 0.95em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mk-flex-actions {
+  display: flex;
+  gap: 0.6em;
+  margin-top: 0.6em;
+  padding-bottom: 0.7em;
+}
+
+.mk-flex-actions span {
+  flex: 1;
+  padding: 0.45em 0;
+  border-radius: 0.5em;
+  color: #06c755;
+  font-size: 0.9em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mk-flex-actions .is-primary {
+  background: #06c755;
+  color: #fff;
+}
+
+/* 輸入框 */
+.mk-line-input {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  padding: 0.6em 1em 1.5em;
+  background: #fff;
+  color: #6b7280;
+}
+
+.mk-line-input > svg {
+  width: 1.6em;
+  height: 1.6em;
+}
+
+.mk-line-field {
+  flex: 1;
+  min-width: 0;
+  height: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.8em;
+  background: #f1f3f5;
+  border-radius: 1.3em;
+  color: #9ca3af;
+}
+
+.mk-line-field svg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+/* =========================================================
+   LIFF 頁面
+========================================================= */
+
+.mk-phone--liff .mk-status {
+  background: #fff;
+}
+
+.mk-liff-top {
+  flex: none;
+  display: flex;
+  align-items: center;
+  padding: 0.2em 1em 0.6em;
+  background: #fff;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.mk-liff-title {
+  flex: 1;
+  padding-left: 3em;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.mk-liff-title strong {
+  display: block;
+  font-size: 1.15em;
+}
+
+.mk-liff-title small {
+  font-size: 0.72em;
+  color: #9ca3af;
+}
+
+.mk-liff-top-icons {
+  display: flex;
+  gap: 0.9em;
+}
+
+.mk-liff-top-icons svg {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.mk-app {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  padding: 1em 1.1em;
+  overflow: hidden;
+}
+
+.mk-app > * {
+  flex: none;
+}
+
+/* 頁首 */
+.mk-page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.mk-page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 1.35em;
+  font-weight: 800;
+}
+
+.mk-page-title svg {
+  width: 0.95em;
+  height: 0.95em;
+}
+
+.mk-hi {
+  margin-top: 0.1em;
+  font-size: 0.75em;
+  color: #9ca3af;
+}
+
+.mk-head-icons {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  color: #374151;
+}
+
+.mk-head-icons svg {
+  width: 1.7em;
+  height: 1.7em;
+}
+
+.mk-bell,
+.mk-nav-icon {
+  position: relative;
+  display: inline-flex;
+}
+
+.mk-badge {
+  position: absolute;
+  top: -0.45em;
+  right: -0.55em;
+  min-width: 1.5em;
+  height: 1.5em;
+  display: grid;
+  place-items: center;
+  padding: 0 0.3em;
+  background: #ef4444;
+  border-radius: 1em;
+  color: #fff;
+  font-size: 0.72em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* 待你處理 */
+.mk-pending {
+  padding: 0.8em;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 0.8em;
+}
+
+.mk-pending-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6em;
+  color: #92400e;
+  font-size: 0.92em;
+  font-weight: 700;
+}
+
+.mk-pending-head span,
+.mk-pending-head small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.mk-pending-head small {
+  color: #b45309;
+  font-size: 0.85em;
+}
+
+.mk-pending-head svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.mk-pending-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  padding: 0.65em 0.8em;
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 0.6em;
+}
+
+.mk-pending-item svg {
+  width: 1.3em;
+  height: 1.3em;
+  color: #6b7280;
+}
+
+.mk-pending-item div {
+  flex: 1;
+  min-width: 0;
+}
+
+.mk-pending-item strong {
+  display: block;
+  font-size: 0.95em;
+}
+
+.mk-pending-item small {
+  display: block;
+  font-size: 0.75em;
+  color: #6b7280;
+}
+
+/* 標籤 */
+.mk-pill {
+  flex: none;
+  padding: 0.15em 0.6em;
+  background: #eff6ff;
+  border-radius: 0.5em;
+  color: #2563eb;
+  font-size: 0.72em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mk-pill--green {
+  background: #ecfdf3;
+  color: #16a34a;
+}
+
+.mk-pill--gray {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* 切換頁籤 */
+.mk-seg {
+  display: flex;
+  padding: 0.3em;
+  background: #eef1f5;
+  border-radius: 1.4em;
+}
+
+.mk-seg > span {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  padding: 0.5em 0;
+  border-radius: 1.2em;
+  color: #4b5563;
+  font-size: 0.92em;
+}
+
+.mk-seg > .is-active {
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  color: #111827;
+  font-weight: 700;
+}
+
+.mk-count {
+  padding: 0.05em 0.5em;
+  background: #e5e7eb;
+  border-radius: 1em;
+  color: #6b7280;
+  font-size: 0.75em;
+}
+
+.mk-count--green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* 按鈕與輸入框 */
+.mk-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  padding: 0.7em;
+  border-radius: 0.6em;
+  font-size: 0.95em;
+  font-weight: 700;
+}
+
+.mk-btn svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.mk-btn--green {
+  background: #06c755;
+  color: #fff;
+}
+
+.mk-btn--outline {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  color: #111827;
+}
+
+.mk-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65em 0.9em;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.6em;
+  color: #9ca3af;
+  font-size: 0.88em;
+}
+
+.mk-field--select {
+  color: #111827;
+}
+
+.mk-field svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+/* 任務卡 */
+.mk-card {
+  padding: 0.9em 1em;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.8em;
+}
+
+.mk-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.mk-dot {
+  flex: none;
+  width: 0.6em;
+  height: 0.6em;
+  background: #f59e0b;
+  border-radius: 50%;
+}
+
+.mk-card-head strong {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 1.02em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mk-card-head small {
+  font-size: 0.72em;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.mk-folder {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  margin: 0.25em 0 0.45em;
+  color: #9ca3af;
+  font-size: 0.75em;
+}
+
+.mk-folder svg {
+  width: 1em;
+  height: 1em;
+}
+
+.mk-card-desc {
+  margin-bottom: 0.6em;
+  overflow: hidden;
+  color: #374151;
+  font-size: 0.85em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mk-kv {
+  display: grid;
+  grid-template-columns: 4em 1fr;
+  row-gap: 0.2em;
+  margin: 0;
+  font-size: 0.8em;
+}
+
+.mk-kv dt {
+  color: #9ca3af;
+}
+
+.mk-kv dd {
+  margin: 0;
+  color: #111827;
+}
+
+.mk-card-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.6em;
+  color: #6b7280;
+  font-size: 0.8em;
+}
+
+.mk-card-foot > span:last-child {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.mk-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.mk-inline svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+/* 完成度 */
+.mk-progress {
+  padding: 1em 1.1em;
+  background: #0f1b2d;
+  border-radius: 0.9em;
+  color: #fff;
+}
+
+.mk-progress small {
+  font-size: 0.78em;
+  opacity: 0.75;
+}
+
+.mk-progress-num {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5em;
+  margin: 0.15em 0 0.6em;
+}
+
+.mk-progress-num strong {
+  font-size: 2.6em;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.mk-progress-num span {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
+.mk-bar {
+  height: 0.4em;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1em;
+}
+
+.mk-bar i {
+  display: block;
+  width: 15%;
+  height: 100%;
+  background: #06c755;
+  border-radius: inherit;
+}
+
+/* 統計 */
+.mk-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7em;
+}
+
+.mk-stat {
+  padding: 0.7em 0.9em;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.8em;
+}
+
+.mk-stat small {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  color: #6b7280;
+  font-size: 0.8em;
+}
+
+.mk-stat small::before {
+  content: "";
+  width: 0.55em;
+  height: 0.55em;
+  background: var(--c);
+  border-radius: 50%;
+}
+
+.mk-stat strong {
+  display: block;
+  margin-top: 0.15em;
+  font-size: 1.9em;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+/* 行事曆 */
+.mk-cal-label {
+  color: #374151;
+  font-size: 0.95em;
+  font-weight: 700;
+}
+
+.mk-cal-label--muted {
+  margin-top: 0.3em;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.mk-cal-date {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: -0.3em;
+  color: #4b5563;
+  font-size: 0.82em;
+}
+
+.mk-cal-date::before {
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  background: #38bdf8;
+  border-radius: 50%;
+}
+
+.mk-meet {
+  padding: 0.85em 1em 0.7em;
+  background: #fff;
+  border: 1px solid #bfe3f5;
+  border-radius: 0.9em;
+}
+
+.mk-meet-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.mk-meet-head svg {
+  width: 1.2em;
+  height: 1.2em;
+  color: #1e3a5f;
+}
+
+.mk-meet-head strong {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 1em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mk-meet .mk-folder {
+  margin: 0.3em 0 0.2em;
+}
+
+.mk-meet-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2em 0.9em;
+  color: #4b5563;
+  font-size: 0.76em;
+}
+
+.mk-meet-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+}
+
+.mk-meet-meta svg {
+  width: 1.05em;
+  height: 1.05em;
+}
+
+.mk-meet-meta .is-blue {
+  color: #0369a1;
+  font-weight: 600;
+}
+
+.mk-meet-more {
+  margin-top: 0.15em;
+  color: #2563eb;
+  font-size: 0.8em;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* 底部導覽 */
+.mk-nav {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 0.6em 0.3em 1.7em;
+  background: #fff;
+  border-top: 1px solid #eef0f3;
+}
+
+.mk-nav > span {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25em;
+  color: #6b7280;
+  font-size: 0.72em;
+  white-space: nowrap;
+}
+
+.mk-nav svg {
+  width: 1.9em;
+  height: 1.9em;
+}
+
+.mk-nav > .is-active {
+  color: #06c755;
+  font-weight: 700;
+}
+
+.mk-nav > .is-active::before {
+  content: "";
+  position: absolute;
+  top: -0.85em;
+  width: 60%;
+  height: 0.25em;
+  background: #06c755;
+  border-radius: 1em;
+}
+
+/* =========================================================
+   RWD
+========================================================= */
+
+@media (max-width: 650px) {
+  .mk-phone {
+    max-width: 230px;
+    margin: 12px auto;
+    padding: 5px;
+    border-radius: 28px;
+    box-shadow: 0 10px 24px rgba(16, 24, 40, 0.1);
+  }
+
+  .mk-screen {
+    border-radius: 23px;
+  }
+}
