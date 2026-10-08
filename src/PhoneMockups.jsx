@@ -437,7 +437,7 @@ export function MyTasksMock() {
           </div>
 
           <div className="mk-folder">
-            <Icon name="folder" />A
+            <Icon name="folder" />SUROS 專案群組
           </div>
 
           <div className="mk-card-desc">
@@ -642,7 +642,7 @@ export function CalendarMock() {
           title="案子討論會議"
           status="已定案"
           statusType="green"
-          group="A"
+          group="SUROS 專案群組"
           date="明天（2026-09-18）"
           host="王小明"
           ack="4/5"
