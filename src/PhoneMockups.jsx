@@ -304,7 +304,7 @@ function PendingCard() {
         <Icon name="calendar" />
         <div>
           <strong>案子討論會議</strong>
-          <small>明天（2026-09-18）· A</small>
+          <small>明天（2026-09-18）· SUROS 專案群組</small>
         </div>
         <span className="mk-pill">即將</span>
       </div>
