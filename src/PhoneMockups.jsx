@@ -572,8 +572,8 @@ export function MeetingChatMock() {
           </div>
         </Them>
 
-        <Them name="陳志明" avatar="明" color="#f59e0b" time="上午 10:13">
-          🙋 陳志明 確認出席「案子討論會議」（已知悉 2/5）
+        <Them name="林小美" avatar="美" color="#f59e0b" time="上午 10:13">
+          🙋 林小美 確認出席「案子討論會議」（已知悉 2/5）
         </Them>
 
         <Them name="黃雅婷" avatar="婷" color="#ec4899" time="上午 10:26">
