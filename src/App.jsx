@@ -317,35 +317,56 @@ function App() {
         </section>
 
         {/* Services */}
-        <section className="section service-section" id="service">
-          <div className="section-heading centered">
-            <div className="section-number">02 / 功能服務</div>
-            <h2>
-              從一句話開始，
-              <br />
-              <span>完成整個任務流程。</span>
-            </h2>
-            <p>
-              不需要重新學習一套複雜的工作系統，
-              直接利用團隊熟悉的 LINE 完成任務管理。
+          <section className="section service-section" id="service">
+            <div className="section-heading centered">
+              <div className="section-number">02 / 功能服務</div>
+              <h2>
+                從一句話開始，
+                <br />
+                <span>完成整個任務流程。</span>
+              </h2>
+              <p>
+                不需要重新學習一套複雜的工作系統，
+                直接利用團隊熟悉的 LINE 完成任務管理。
+              </p>
+            </div>
+
+            {(() => {
+              const standard = services.filter((s) => !s.custom);
+              const custom = services.filter((s) => s.custom);
+
+              return (
+                <>
+                  {/* 標準功能 */}
+                  <div className="service-grid">
+                    {standard.map((item, index) => (
+                      <ServiceCard item={item} index={index} key={item.title} />
+                    ))}
+                  </div>
+
+                  {/* 客製化功能：獨立一排 */}
+                  <div className="service-group-label">
+                    <span className="legend-star">✦</span>
+                    客製化項目
+                  </div>
+
+                  <div className="service-grid service-grid--custom">
+                    {custom.map((item, index) => (
+                      <ServiceCard
+                        item={item}
+                        index={standard.length + index}
+                        key={item.title}
+                      />
+                    ))}
+                  </div>
+                </>
+              );
+            })()}
+
+            <p className="service-note">
+              ※ 客製化項目需依企業需求評估規劃，功能細節與費用請洽詢業務。
             </p>
-          </div>
-
-          <div className="service-legend">
-            <span className="legend-star">✦</span>
-            為客製化項目
-          </div>
-
-          <div className="service-grid">
-            {services.map((item, index) => (
-              <ServiceCard item={item} index={index} key={item.title} />
-            ))}
-          </div>
-
-          <p className="service-note">
-            ※ 客製化項目需依企業需求評估規劃，功能細節與費用請洽詢業務。
-          </p>
-        </section>
+          </section>
        {/* Scenario */}
         <section className="section scenario-section" id="scenario">
           <div className="section-heading centered">
