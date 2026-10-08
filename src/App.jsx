@@ -60,6 +60,7 @@ const services = [
     icon: "✦",
     title: "會議管理系統",
     text: "將 LINE 中的會議資訊獨立整理，與一般工作任務清楚區隔。",
+    custom: true,
   },
   {
     icon: "✦",
