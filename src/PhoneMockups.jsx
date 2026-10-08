@@ -385,7 +385,7 @@ export function LineTaskChatMock() {
         </Them>
 
         <Them time="下午 5:50">
-          ✅ <b>林小美</b> 開始處理「了解並回應客戶訊息」
+          ✅林小美開始處理「了解並回應客戶訊息」
         </Them>
       </div>
 
