@@ -812,25 +812,19 @@ button:focus-visible {
   gap: 18px;
 }
 
-/* 左 2 欄標準 + 右 1 欄客製化，兩邊等高、每列對齊 */
-.service-layout {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 18px;
-  align-items: stretch;
-  margin-top: 36px; /* 留空間給右上角圖例 */
+/* 客製化：4 個項目在下方排成一排 */
+.service-grid--custom {
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.service-grid--standard {
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 1fr;
-}
-
-.service-custom-col {
-  position: relative;
-  display: grid;
-  grid-auto-rows: 1fr;
-  gap: 18px;
+.service-group-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 40px 0 16px;
+  color: var(--red);
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .service-card {
@@ -902,22 +896,6 @@ button:focus-visible {
 .service-card.is-custom .service-icon {
   background: var(--red-light);
   color: var(--red);
-}
-
-/* 右欄上方的圖例 */
-.service-legend {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-  color: var(--text-light);
-  font-size: 12px;
-}
-
-.service-custom-col .service-legend {
-  position: absolute;
-  top: -30px;
-  right: 0;
 }
 
 .legend-star {
@@ -1810,16 +1788,7 @@ button:focus-visible {
   animation: fx-node-glow 3s ease-in-out infinite;
 }
 
-/* ---------- 8. 比較表：打勾逐列彈出 ---------- */
-
-.comparison-scroll.is-visible .compare-check,
-.comparison-scroll.is-visible .compare-dash {
-  display: inline-block;
-  animation: fx-pop-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1.4) both;
-  animation-delay: calc(0.3s + var(--row, 0) * 0.07s);
-}
-
-/* ---------- 9. CTA 背景光暈漂移 ---------- */
+/* ---------- 8. CTA 背景光暈漂移 ---------- */
 
 .cta-glow {
   animation: fx-drift 12s ease-in-out infinite;
@@ -1890,22 +1859,8 @@ button:focus-visible {
     min-height: auto;
   }
 
-  /* 服務：客製化欄改到標準功能下方 */
-  .service-layout {
-    grid-template-columns: 1fr;
-    margin-top: 0;
-  }
-
-  .service-custom-col {
+  .service-grid--custom {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: auto;
-  }
-
-  .service-custom-col .service-legend {
-    position: static;
-    grid-column: 1 / -1;
-    justify-content: flex-start;
-    margin-top: 14px;
   }
 
   /* 使用情境改兩欄 */
@@ -2129,15 +2084,13 @@ button:focus-visible {
 
   /* ---------- 服務：改成較精簡的橫向卡片 ---------- */
 
-  .service-layout {
+  .service-grid {
+    grid-template-columns: 1fr;
     gap: 10px;
   }
 
-  .service-grid,
-  .service-custom-col {
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    gap: 10px;
+  .service-group-label {
+    margin: 28px 0 12px;
   }
 
   .service-card {

@@ -401,29 +401,27 @@ function App() {
             </p>
           </div>
 
-          <div className="service-layout">
-            {/* 左：標準功能（兩欄） */}
-            <div className="service-grid service-grid--standard">
-              {standardServices.map((item, index) => (
-                <ServiceCard item={item} index={index} key={item.title} />
-              ))}
-            </div>
+          {/* 標準功能 */}
+          <div className="service-grid">
+            {standardServices.map((item, index) => (
+              <ServiceCard item={item} index={index} key={item.title} />
+            ))}
+          </div>
 
-            {/* 右：客製化功能（直排一欄） */}
-            <div className="service-custom-col">
-              <div className="service-legend">
-                <span className="legend-star">✦</span>
-                為客製化項目
-              </div>
+          {/* 客製化功能：放在下方一排 */}
+          <div className="service-group-label">
+            <span className="legend-star">✦</span>
+            客製化項目
+          </div>
 
-              {customServices.map((item, index) => (
-                <ServiceCard
-                  item={item}
-                  index={standardServices.length + index}
-                  key={item.title}
-                />
-              ))}
-            </div>
+          <div className="service-grid service-grid--custom">
+            {customServices.map((item, index) => (
+              <ServiceCard
+                item={item}
+                index={standardServices.length + index}
+                key={item.title}
+              />
+            ))}
           </div>
 
           <p className="service-note">
