@@ -140,7 +140,7 @@ function App() {
             <a href="#problem">客戶痛點</a>
             <a href="#service">服務內容</a>
             <a href="#scenario">使用情境</a>
-            <a href="#architecture">技術架構</a>
+            <a href="#architecture">服務流程</a>
             <a href="#compare">方案比較</a>
           </nav>
 
