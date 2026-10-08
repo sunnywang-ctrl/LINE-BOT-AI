@@ -343,7 +343,7 @@ function BottomNav({ active }) {
 export function LineTaskChatMock() {
   return (
     <Phone theme="line" time="17:52" label="LINE 群組中 AI 從對話與圖片建立任務的示意畫面">
-      <LineHeader title="SUROS 專案群組 (5)" />
+      <LineHeader title="SUROS 專案群組 (6)" />
 
       <div className="mk-chat">
         <Me time="下午 5:48" bare>
@@ -537,7 +537,7 @@ export function AllTasksMock() {
 export function MeetingChatMock() {
   return (
     <Phone theme="line" time="10:42" label="LINE 群組中 AI 辨識會議並統計出席的示意畫面">
-      <LineHeader title="SUROS 專案群組 (5)" />
+      <LineHeader title="SUROS 專案群組 (6)" />
 
       <div className="mk-chat">
         <Them time="下午 5:50">
